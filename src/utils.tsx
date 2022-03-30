@@ -64,7 +64,7 @@ export const setLiveDeadCells = (grid) => {
   return newGrid;
 };
 
-export const useInterval = (callback, delay) => {
+export const useInterval = (callback) => {
   const savedCallback = useRef(callback);
 
   useEffect(() => {
@@ -72,12 +72,8 @@ export const useInterval = (callback, delay) => {
   }, [callback]);
 
   useEffect(() => {
-    if (delay === null) {
-      return;
-    }
-
-    const id = setInterval(() => savedCallback.current(), delay);
+    const id = setInterval(() => savedCallback.current(), 1000);
 
     return () => clearInterval(id);
-  }, [delay]);
+  }, []);
 };
