@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/conwaysGameOfLife/static/css/main.b1bcd625.css",
-    "main.js": "/conwaysGameOfLife/static/js/main.5e858b3a.js",
+    "main.css": "/conwaysGameOfLife/static/css/main.8521d61d.css",
+    "main.js": "/conwaysGameOfLife/static/js/main.676e2c5e.js",
     "index.html": "/conwaysGameOfLife/index.html",
-    "main.b1bcd625.css.map": "/conwaysGameOfLife/static/css/main.b1bcd625.css.map",
-    "main.5e858b3a.js.map": "/conwaysGameOfLife/static/js/main.5e858b3a.js.map"
+    "main.8521d61d.css.map": "/conwaysGameOfLife/static/css/main.8521d61d.css.map",
+    "main.676e2c5e.js.map": "/conwaysGameOfLife/static/js/main.676e2c5e.js.map"
   },
   "entrypoints": [
-    "static/css/main.b1bcd625.css",
-    "static/js/main.5e858b3a.js"
+    "static/css/main.8521d61d.css",
+    "static/js/main.676e2c5e.js"
   ]
 }
