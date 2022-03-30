@@ -1,7 +1,20 @@
 import React, { ReactElement, useState } from 'react';
 import './Drawer.scss';
 
-export const Drawer = ({ rows, handleSetRows, columns, handleSetColumns, grid, handleSetGrid, handleSetNewGrid, buttonPlayClass, handlePlay, isPlaying }): ReactElement => {
+interface DrawerProps {
+  rows: number;
+  handleSetRows: (e) => void;
+  columns: number;
+  handleSetColumns: (e) => void;
+  grid: Array<Array<boolean>>;
+  handleSetGrid: () => void;
+  handleSetNewGrid: () => void;
+  buttonPlayClass: string;
+  handlePlay: () => void;
+  isPlaying: boolean;
+}
+
+export const Drawer = (props: DrawerProps): ReactElement => {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleSetOpen = (): void => {
@@ -20,21 +33,21 @@ export const Drawer = ({ rows, handleSetRows, columns, handleSetColumns, grid, h
         <div className='sidebar__grid'>
           <div className='sidebar__grid-rows'>
             <label htmlFor='rowNumber'>Rows</label>
-            <input type='number' id='rowNumber' value={rows} onChange={handleSetRows}></input>
+            <input type='number' id='rowNumber' value={props.rows} onChange={props.handleSetRows}></input>
           </div>
           <div className='sidebar__grid-times'>X</div>
           <div className='sidebar__grid-columns'>
             <label htmlFor='columnNumber'>Columns</label>
-            <input type='number' id='columnNumber' value={columns} onChange={handleSetColumns}></input>
+            <input type='number' id='columnNumber' value={props.columns} onChange={props.handleSetColumns}></input>
           </div>
         </div>
         <div className='sidebar__buttons'>
-          <button onClick={handleSetGrid}>Start</button>
-          <button onClick={handleSetNewGrid} disabled={grid.length < 1}>
+          <button onClick={props.handleSetGrid}>Start</button>
+          <button onClick={props.handleSetNewGrid} disabled={props.grid.length < 1}>
             Next
           </button>
-          <button className={buttonPlayClass} onClick={handlePlay} disabled={grid.length < 1}>
-            {isPlaying ? 'Stop' : 'Play'}
+          <button className={props.buttonPlayClass} onClick={props.handlePlay} disabled={props.grid.length < 1}>
+            {props.isPlaying ? 'Stop' : 'Play'}
           </button>
         </div>
       </div>

@@ -1,12 +1,18 @@
 import React, { ReactElement, useRef, useState } from 'react';
 import { Drawer } from './Drawer';
 import './Game.scss';
-import { generateGrid, setLiveDeadCells, useInterval } from './utils';
+import { generateGrid, setLiveDeadCells, useOneSecondInterval } from './utils';
 
-const GameBoard = ({ grid, numberColumns, setGrid, gameBoardClickableClass }): ReactElement => {
+interface GameBoardProps {
+  grid: Array<Array<boolean>>;
+  numberColumns: number;
+  setGrid: (grid) => void;
+  gameBoardClickableClass: string;
+}
+const GameBoard = ({ grid, numberColumns, setGrid, gameBoardClickableClass }: GameBoardProps): ReactElement => {
   const tileSize = numberColumns > 60 ? '13px' : '20px';
 
-  const setCells = (i, j) => {
+  const setCells = (i, j): void => {
     let newGrid = JSON.parse(JSON.stringify(grid));
     newGrid[i][j] = grid[i][j] ? false : true;
     setGrid(newGrid);
@@ -47,7 +53,7 @@ const Game = (): ReactElement => {
     }
   };
 
-  const handleSetNewGrid = () => {
+  const handleSetNewGrid = (): void => {
     setGrid(setLiveDeadCells(grid));
   };
 
@@ -62,11 +68,11 @@ const Game = (): ReactElement => {
     setGrid(newGrid);
   };
 
-  useInterval(() => {
+  useOneSecondInterval(() => {
     runPlay(grid);
   });
 
-  const handlePlay = () => {
+  const handlePlay = (): void => {
     setIsPlaying(!isPlaying);
 
     if (!isPlaying) {
