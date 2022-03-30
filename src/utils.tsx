@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const generateGrid = (rows, columns): Array<Array<number>> => {
+export const generateGrid = (rows, columns): Array<Array<boolean>> => {
   let grid = [];
   for (let i = 0; i < rows; i++) {
     let row = [];
@@ -12,13 +12,13 @@ export const generateGrid = (rows, columns): Array<Array<number>> => {
   return grid;
 };
 
-export const setLiveDeadCells = (grid) => {
+export const setLiveDeadCells = (grid): Array<Array<boolean>> => {
   let liveSurroundingTilesGrid = JSON.parse(JSON.stringify(grid));
   let newGrid = JSON.parse(JSON.stringify(grid));
 
   grid.forEach((row, i) => {
     row.forEach((column, j) => {
-      //refactor, there has to be a better way than brute force pushing here
+      //improvement refactor, there has to be a better way to check for surrounding tiles state and update
       const surroundingTilesArray = [];
       if (j < grid.length - 1) {
         surroundingTilesArray.push(grid[i][j + 1]);
@@ -64,7 +64,7 @@ export const setLiveDeadCells = (grid) => {
   return newGrid;
 };
 
-export const useInterval = (callback) => {
+export const useOneSecondInterval = (callback): void => {
   const savedCallback = useRef(callback);
 
   useEffect(() => {
