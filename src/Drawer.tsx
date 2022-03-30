@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import './Drawer.scss';
+import { ArrowIcon } from './icons';
 
 interface DrawerProps {
   rows: number;
@@ -25,8 +26,8 @@ export const Drawer = (props: DrawerProps): ReactElement => {
 
   return (
     <aside className={`drawerContainer drawerContainer-${drawerPosition}`}>
-      <button onClick={handleSetOpen} className={`drawerContainer__button`}>
-        {isOpen ? '<' : '>'}
+      <button aria-label={isOpen ? 'Close' : 'Open'} onClick={handleSetOpen} className={`drawerContainer__button`}>
+        <ArrowIcon />
       </button>
       <div className='sidebar'>
         <h2>Settings</h2>

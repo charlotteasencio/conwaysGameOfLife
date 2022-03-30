@@ -8,7 +8,7 @@
   background: white;
   box-shadow: 0 10px 5px $boxshadow-gray;
   background: #f8f8fd;
-  border-right: 0.5px solid gray;
+  border-right: 0.5px solid $basic-gray;
   .drawerContainer__button {
     position: absolute;
     right: -15px;
@@ -16,12 +16,15 @@
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    border: 1px solid black;
+    border: 1px solid $basic-gray;
     cursor: pointer;
     background: $limegreen;
   }
   &.drawerContainer-closed {
     transform: translate(-170px);
+    .drawerContainer__button {
+      transform: scaleX(-1);
+    }
   }
   &.drawerContainer-open {
     transform: translate(0);
