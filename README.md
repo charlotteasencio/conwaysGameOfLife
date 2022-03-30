@@ -1,8 +1,9 @@
 # Conways Game of Life
 
 ## Run Application on Local Machine
-1) Checkout code from the repository 
+1) Clone code from the repository or download and open the zip file
 2) Run `npm i` to install necessary packages
 3) Run `npm start` to start local host
 
 ## Live Example
+https://charlotteasencio.github.io/conwaysGameOfLife/
