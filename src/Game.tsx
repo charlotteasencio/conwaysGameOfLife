@@ -1,9 +1,10 @@
 import React, { ReactElement, useRef, useState } from 'react';
+import { Drawer } from './Drawer';
 import './Game.scss';
 import { generateGrid, setLiveDeadCells, useInterval } from './utils';
 
-const GameBoard = ({ grid, numberColumns, setGrid }): ReactElement => {
-  const tileSize = numberColumns > 50 ? '15px' : '20px';
+const GameBoard = ({ grid, numberColumns, setGrid, gameBoardClickableClass }): ReactElement => {
+  const tileSize = numberColumns > 60 ? '13px' : '20px';
 
   const setCells = (i, j) => {
     let newGrid = JSON.parse(JSON.stringify(grid));
@@ -12,12 +13,14 @@ const GameBoard = ({ grid, numberColumns, setGrid }): ReactElement => {
   };
 
   return (
-    <div className='gameBoard' style={{ display: 'grid', gridTemplateColumns: `repeat(${numberColumns}, ${tileSize})` }}>
-      {grid.map((rows, i) => {
-        return rows.map((columns, j) => {
-          return <div className={`tile tile_${grid[i][j]}`} id={`tile_${i}${j}`} style={{ height: tileSize, width: tileSize }} key={`tile_${i}${j}`} onClick={() => setCells(i, j)}></div>;
-        });
-      })}
+    <div className={`gameBoard__container ${gameBoardClickableClass}`}>
+      <div className='gameBoard' style={{ display: 'grid', gridTemplateColumns: `repeat(${numberColumns}, ${tileSize})` }}>
+        {grid.map((rows, i) => {
+          return rows.map((columns, j) => {
+            return <div className={`tile tile_${grid[i][j]}`} id={`tile_${i}${j}`} style={{ height: tileSize, width: tileSize }} key={`tile_${i}${j}`} onClick={() => setCells(i, j)} onDragExit={() => setCells(i, j)}></div>;
+          });
+        })}
+      </div>
     </div>
   );
 };
@@ -61,7 +64,7 @@ const Game = (): ReactElement => {
 
   useInterval(() => {
     runPlay(grid);
-  }, 1000);
+  });
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
@@ -72,38 +75,13 @@ const Game = (): ReactElement => {
   };
 
   const gameBoardClickableClass = isPlaying ? 'gameBoard__container-unclickable' : '-gameBoard__container-clickable';
-  const headerButtonPlayClass = isPlaying ? 'header__buttons-playing' : 'header__buttons-notPlaying';
+  const buttonPlayClass = isPlaying ? 'sidebar__buttons-playing' : 'sidebar__buttons-notPlaying';
 
   return (
     <div className='game'>
-      <div className='header'>
-        <h1>Conway's Game of Life</h1>
-        <div className='header__grid'>
-          <div className='header__grid-rows'>
-            <label htmlFor='rowNumber'>Rows</label>
-            <input type='number' id='rowNumber' value={rows} onChange={handleSetRows}></input>
-          </div>
-          <div className='header__grid-times'>X</div>
-          <div className='header__grid-columns'>
-            <label htmlFor='columnNumber'>Columns</label>
-            <input type='number' id='columnNumber' value={columns} onChange={handleSetColumns}></input>
-          </div>
-        </div>
-        <div className='header__buttons'>
-          <button onClick={handleSetGrid}>Start</button>
-          <button onClick={handleSetNewGrid} disabled={grid.length < 1}>
-            Next
-          </button>
-          <button className={headerButtonPlayClass} onClick={handlePlay} disabled={grid.length < 1}>
-            {isPlaying ? 'Stop' : 'Play'}
-          </button>
-        </div>
-      </div>
-      {grid.length > 0 && (
-        <div className={`gameBoard__container ${gameBoardClickableClass}`}>
-          <GameBoard grid={grid} numberColumns={grid[0]?.length} setGrid={setGrid} />
-        </div>
-      )}
+      <Drawer rows={rows} buttonPlayClass={buttonPlayClass} handleSetRows={handleSetRows} columns={columns} handleSetColumns={handleSetColumns} grid={grid} handleSetGrid={handleSetGrid} handleSetNewGrid={handleSetNewGrid} handlePlay={handlePlay} isPlaying={isPlaying} />
+      <h1>Conway's Game of Life</h1>
+      <div className='main'>{grid.length > 0 && <GameBoard grid={grid} numberColumns={grid[0]?.length} setGrid={setGrid} gameBoardClickableClass={gameBoardClickableClass} />}</div>
     </div>
   );
 };
