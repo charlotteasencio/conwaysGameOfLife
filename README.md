@@ -6,3 +6,4 @@
 3) Run `npm start` to start local host
 
 ## Live Example
+https://charlotteasencio.github.io/conwaysGameOfLife/
